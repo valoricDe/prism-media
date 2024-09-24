@@ -1,7 +1,8 @@
 // Partly based on https://github.com/Rantanen/node-opus/blob/master/lib/Encoder.js
 
 const { Transform } = require('stream');
-const loader = require('../util/loader');
+//const loader = require('../util/loader');
+const opus = require('@discordjs/opus');
 
 const CTL = {
   BITRATE: 4002,
@@ -14,11 +15,7 @@ let Opus = {};
 function loadOpus(refresh = false) {
   if (Opus.Encoder && !refresh) return Opus;
 
-  Opus = loader.require([
-    ['@discordjs/opus', opus => ({ Encoder: opus.OpusEncoder })],
-    ['node-opus', opus => ({ Encoder: opus.OpusEncoder })],
-    ['opusscript', opus => ({ Encoder: opus })],
-  ]);
+  Opus = { Encoder: opus.OpusEncoder };
   return Opus;
 }
 
